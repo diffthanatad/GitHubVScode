@@ -1,16 +1,35 @@
 import sys
 from PySide2.QtCore import *
-from PySide2.QtWidgets import *
 from PySide2.QtGui import *
+from PySide2.QtWidgets import *
+from PySide2.QtPrintSupport import *
+
 
 class Simple_drawing_window(QWidget):
     def __init__(self):
         QWidget.__init__(self, None)
-        self.setWindowTitle("A simple paint program")
-        self.clear_button = QPushButton("Clear", self)
-        self.clear_button.setGeometry(QRect(100, 100, 100, 100))
-        
+        self.setWindowTitle("Simple Drawing")
+        self.points = []
 
+        self.resize(400, 330)
+
+        self.label = QLabel(self)
+        self.label.setText("Drag mouse to draw")
+        self.label.move(140, 260)
+
+        self.button = QPushButton(self)
+        self.button.setText("Clear")
+        self.button.move(160, 280)
+        self.button.clicked.connect(self.clear_points)
+
+    def clear_points(self):
+        self.points = []
+
+    def mouseMoveEvent(self, event):
+        self.points.append(event.pos())
+
+        self.update()
+        
 def main():
     app = QApplication(sys.argv)
 
