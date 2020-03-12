@@ -29,6 +29,15 @@ class Simple_drawing_window(QWidget):
         self.points.append(event.pos())
 
         self.update()
+    
+    def paintEvent(self, e):
+        p = QPainter()
+        p.begin(self)
+        p.setPen(QColor(0, 0, 0))
+        p.setBrush(QColor(0, 0, 0))
+        for point in self.points:
+            p.drawPie(point.x(), point.y(), 10, 10, 0, 180 * 32)
+        p.end()
         
 def main():
     app = QApplication(sys.argv)
