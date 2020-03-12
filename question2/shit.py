@@ -24,6 +24,7 @@ class Simple_drawing_window(QWidget):
 
     def clear_points(self):
         self.points = []
+        self.update()
 
     def mouseMoveEvent(self, event):
         self.points.append(event.pos())
